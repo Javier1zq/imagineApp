@@ -1,0 +1,7 @@
+{
+  "name": "imagineApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
