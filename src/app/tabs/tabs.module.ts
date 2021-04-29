@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { TabsPageRoutingModule } from './tabs-routing.module';
-
+import { ChartsModule } from 'ng2-charts';
 import { TabsPage } from './tabs.page';
 
 @NgModule({
@@ -12,7 +12,8 @@ import { TabsPage } from './tabs.page';
     IonicModule,
     CommonModule,
     FormsModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    ChartsModule
   ],
   declarations: [TabsPage]
 })

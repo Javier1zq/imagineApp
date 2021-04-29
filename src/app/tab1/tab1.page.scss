@@ -1,0 +1,31 @@
+ion-content{
+  --ion-color-primary:#00CF83;
+}
+
+ion-slides{
+
+  ion-slide {
+    height: 300px;
+    width: 100% !important;
+
+
+    ion-card{
+      height: 250px;
+      width: 100%;
+  }
+}
+}
+.vertical-align-content > *
+{
+     display: flex!important;
+     align-content: center!important;
+     align-items: center!important;
+}
+.ion-color-vibrant {
+  --ion-color-base: #00CF83;
+  --ion-color-base-rgb: 255,255,0;
+  --ion-color-contrast: #000000;
+  --ion-color-contrast-rgb: 0,0,0;
+  --ion-color-shade: #00CF83;
+  --ion-color-tint: #00CF83;
+}

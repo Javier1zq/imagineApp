@@ -1,12 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <div class="row features-small mt-5 ">
+      <div class="col-3"><ion-title>
+        Consumo
+      </ion-title></div>
+    </div>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline" color="vibrant" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <ion-button expand="full" (click)="logout()">Logout</ion-button>
+  <h4 style="text-align: center;">Bienvenid@ a tu perfil, {{user?.first_name}} {{user?.last_name}}</h4>
+  <div class="card">
+    <div class="card-body">
+      <br><br>
+      <h5 style="text-align: center;" *ngIf="data" >Consumo de datos disponible para el dia: <br>{{data[0].date}}</h5>
+      <br><br>
+    </div>
+  </div>
+  <ion-slides   pager="true" [options]="slideOpts">
+    <ion-slide >
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              Consumo de datos
+            </ion-card-title>
+            <ion-card-content>
+              <canvas *ngIf="datachartbool" baseChart
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          [colors]="chartColors"></canvas>
+            </ion-card-content>
+          </ion-card-header>
+        </ion-card>
+    </ion-slide>
+    <ion-slide >
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Consumo de minutos
+          </ion-card-title>
+          <ion-card-content ><br>
+            <p class="text-center">Has utilizado:</p><br>
+            <h1 class="text-center"*ngIf="phonestring">{{phonestring}} minutos.</h1><br>
+            <p class="text-center">Estos minutos son ilimitados.</p>
+          </ion-card-content>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
+    <ion-slide >
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            Consumo de fibra
+          </ion-card-title>
+          <ion-card-content ><br>
+            <p class="text-center">Has utilizado:</p><br>
+            <h1 class="text-center"*ngIf="fiberstring">{{fiberstring}} GB.</h1><br>
+            <p class="text-center">Estos datos son ilimitados.</p>
+          </ion-card-content>
+        </ion-card-header>
+      </ion-card>
+    </ion-slide>
 
+  </ion-slides>
 </ion-content>

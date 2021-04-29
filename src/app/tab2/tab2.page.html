@@ -13,5 +13,25 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="card" *ngIf="data">
+      <div class="card-body">
+        <div class="row features-small mt-5 wow fadeIn" *ngFor="let item of data; let i = index">
+          <div class="col-6">
+            <h3 class="text-center" >Generar factura de la fecha: {{item.date}}</h3>
+          </div>
+          <div class="col-6 center">
+            <a   (click)='generateInvoice()' class="nav-link border border-light rounded text-center">
+              <i class="fas fa-file-invoice mr-2" ></i>Generar
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 </ion-content>
