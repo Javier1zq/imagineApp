@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 /* eslint-disable arrow-body-style */
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -33,9 +36,24 @@ export class AuthenticationService {
   }
 
   login(credentials: {email, password}): Observable<any> {
-    return this.http.post(`https://reqres.in/api/login`, credentials).pipe(
-      map((data: any) => data.token),
+
+
+    const sentData ={
+      username: credentials.email,
+      password: credentials.password,
+      grant_type: 'password',
+      client_id: 2,
+      client_secret: 'RauG1epphlwk6gwX0U6ABCRku94Gy05ZiYDyvvQy',
+      scope: '*'
+    };
+
+
+
+    return this.http.post('http://localhost:8000/oauth/token', sentData).pipe(
+      map((data: any) => data.access_token),
       switchMap(token => {
+        console.log('This is the token in login');
+        console.log(token);
         return from(Storage.set({key: TOKEN_KEY, value: token}));
       }),
       tap(_ => {
@@ -43,6 +61,8 @@ export class AuthenticationService {
       })
     );
   }
+
+
 
   logout(): Promise<void> {
     this.isAuthenticated.next(false);

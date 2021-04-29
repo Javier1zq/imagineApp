@@ -2,8 +2,9 @@ ion-content {
   --padding-top: 40%;
   --padding-start: 10%;
   --padding-end: 10%;
+  --background: linear-gradient(#12236A, #46B36F);
+  //--background: url('https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80') 0 0/100% 100% no-repeat;
 
-  --background: url('https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1234&q=80') 0 0/100% 100% no-repeat;
 }
 .input-group {
   background: #fff;
@@ -20,3 +21,14 @@ ion-content {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.ion-color-vibrant {
+  --ion-color-base: #5cf5c3;
+  --ion-color-base-rgb: 255,255,0;
+  --ion-color-contrast: #000000;
+  --ion-color-contrast-rgb: 0,0,0;
+  --ion-color-shade: #5cf5c3;
+  --ion-color-tint: #5cf5c3;
+}
+
+$theme-colors: ( "primary": #001B6A, "secondary": #00CF83, "customcolor": red);
+
