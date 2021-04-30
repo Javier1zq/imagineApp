@@ -1,8 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <div class="row features-small mt-5 ">
+      <div class="col-3"><ion-title>
+        Facturas
+      </ion-title></div>
+    </div>
+    <ion-buttons slot="primary">
+      <ion-button color="secondary" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline" color="vibrant" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -13,25 +20,29 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="spin" *ngIf="this.dataService.spinnerbool">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  <div *ngIf="!this.dataService.spinnerbool">
+    <br>
+    <ion-card>
+      <div class="container"  >
+        <br>
+        <div class="cell-top" style="text-align: center;" color="light"><ion-text color="light"><h3>Fecha</h3></ion-text></div>
+        <div class="cell-top" style="text-align: center;" color="light"><ion-text color="light"><h3>Generar PDF</h3></ion-text></div>
 
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-    <div class="card" *ngIf="data">
-      <div class="card-body">
-        <div class="row features-small mt-5 wow fadeIn" *ngFor="let item of data; let i = index">
-          <div class="col-6">
-            <h3 class="text-center" >Generar factura de la fecha: {{item.date}}</h3>
-          </div>
-          <div class="col-6 center">
-            <a   (click)='generateInvoice()' class="nav-link border border-light rounded text-center">
-              <i class="fas fa-file-invoice mr-2" ></i>Generar
-            </a>
-          </div>
+        <div *ngFor="let item of data; let i = index" >
+          <br><br>
 
+           <div class="cell" style="text-align: center; "><br><ion-text color="light"><p class="vertical-align-content"></p>{{item.date}}</ion-text><br></div>
+           <div class="cell" style="text-align: center;"><br><ion-button color="primary" (click)='generateInvoice(item.date)'><ion-icon name="download-outline"></ion-icon></ion-button><br></div>
         </div>
       </div>
-    </div>
-  </div>
+    </ion-card>
 
+
+
+  </div>
 
 
 </ion-content>

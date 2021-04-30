@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable eqeqeq */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -19,6 +20,8 @@ import { BehaviorSubject, Observable, from } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import jsPDF from 'jspdf';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
+import { DataService } from '../services/data.service';
+
 const { Storage } = Plugins;
 const TOKEN_KEY = 'my-token';
 @Component({
@@ -49,109 +52,54 @@ export class TabsPage implements OnInit {
 
   constructor(private http: HttpClient,
     private router: Router,
-    public authService: AuthenticationService) {}
-
-  public getData(){
-    return Data;
-  }
-
-
+    public authService: AuthenticationService,
+    public dataService: DataService) {}
 
 
   async ngOnInit(): Promise<void> {
-
     await Storage.get({key: TOKEN_KEY}).then((result) => {this.tokenstring=result.value;});
     const headers = new HttpHeaders({
       'Accept': 'application/json',
       'Authorization': `Bearer ` + this.tokenstring
-
     });
-    //console.log(localStorage.getItem('token'));
-
-    console.log(headers);
-
-    this.http.get('http://localhost:8000/api/user',{headers: headers}).subscribe(
+    this.http.get('http://192.168.0.16:8000/api/user',{headers: headers}).subscribe(
       result=>{
-        this.user=result;
-        console.log("This is the user:");
-        console.log(this.user.DNI);
-
-        this.http.post('http://localhost:8000/api/services', this.user,{headers: headers}).subscribe(
+        this.dataService.user=result;
+        this.http.post('http://192.168.0.16:8000/api/services', this.dataService.user,{headers: headers}).subscribe(
           result=>{
-            this.services=<Services[]>result;
-            console.log("this is the result of get api/services: ");
-            console.log(result);
-            console.log("this is the result of this.services: ");
-            console.log(this.services);
-
-              if (this.services[0]!=null && this.services[0]!=undefined) {
-                console.log("this is the result of data1: ");
-                let data1 =this.services[0].data_type;
-                console.log(data1);
-
-
-
-
-
-                this.http.post('http://localhost:8000/api/data', this.user,{headers: headers}).subscribe(
+            this.dataService.services=<Services[]>result;
+              if (this.dataService.services[0]!=null && this.dataService.services[0]!=undefined) {
+                this.http.post('http://192.168.0.16:8000/api/data', this.dataService.user,{headers: headers}).subscribe(
                   result=>{
-                    this.data=<Data[]>result;
-                    console.log("this is the result of get api/data: ");
-                    console.log(result);
-
-                    if (this.data[0]!=null && this.data[0]!=undefined) {
-                      if (this.services[0].data) {
-                        this.datachartbool=true;
+                    this.dataService.data=<Data[]>result;
+                    if (this.dataService.data[0]!=null && this.dataService.data[0]!=undefined) {
+                      if (this.dataService.services[0].data) {
+                        this.dataService.datachartbool=true;
                         this.doughnutChartLabels = ['Data used (GigaBytes)', 'Remaining data (GigaBytes)'];
-                        this.doughnutChartData = [this.data[0].data/1000, (this.services[0].data_type/1000)-this.data[0].data/1000];
-
+                        this.doughnutChartData = [this.dataService.data[0].data/1000, (this.dataService.services[0].data_type/1000)-this.dataService.data[0].data/1000];
                       }
-
-                      if (this.services[0].fiber) {
-                        this.fiberstring = 'This month you have used ' + this.data[0].fiber/1000 + ' (GigaBytes) out of unlimited';
-
+                      if (this.dataService.services[0].fiber) {
+                        this.dataService.fiberstring = '' + this.dataService.data[0].fiber/1000;
                       }
-                      if (this.services[0].phone) {
-                        this.phonestring = 'This month you have used ' + this.data[0].phone_minutes + ' minutes out of unlimited';
+                      if (this.dataService.services[0].phone) {
+                        this.dataService.phonestring = '' + this.dataService.data[0].phone_minutes;
                       }
-
-
-
-
-                    }else {this.databool=true;}
-
+                    }else {this.dataService.databool=true;}
+                    this.dataService.spinnerbool=false;
                   },
-                  //result=>console.log(localStorage.getItem('token'))
                   err=>{
                     console.log(err);
                   }
                 );
-
-              }else {this.servicebool=true;}
-
+              }else {this.dataService.servicebool=true;}
           },
-          //result=>console.log(localStorage.getItem('token'))
           err=>{
             console.log(err);
           }
         );
-
-
-
-
-
-
-
-
-
       },
-      //result=>console.log(localStorage.getItem('token'))
-
       err=>{
         console.log(err);
-        localStorage.removeItem('token');
-        /*this.authService.logout();
-        this.router.navigate(['/login']);*/
       }
     );
   }

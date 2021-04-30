@@ -1,0 +1,41 @@
+.cell{
+  width: 50%;
+  float: left;
+  border-top: 1px solid grey !important;
+}
+.cell-top{
+  width: 50%;
+  float: left;
+}
+ion-content{
+  --ion-color-primary:#00CF83;
+  --ion-color-light:#ffffff;
+}
+.ion-color-vibrant {
+  --ion-color-base: #00CF83;
+  --ion-color-base-rgb: 255,255,0;
+  --ion-color-contrast: #000000;
+  --ion-color-contrast-rgb: 0,0,0;
+  --ion-color-shade: #00CF83;
+  --ion-color-tint: #00CF83;
+}
+.spin{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+ion-spinner {
+  width: 28px;
+  height: 28px;
+  stroke: rgb(255, 255, 255);
+  fill: #222;
+
+}
+
+.vertical-align-content > *
+{
+     display: flex!important;
+     align-content: center!important;
+     align-items: center!important;
+}

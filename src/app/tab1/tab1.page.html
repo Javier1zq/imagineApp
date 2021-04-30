@@ -13,59 +13,69 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <h4 style="text-align: center;">Bienvenid@ a tu perfil, {{user?.first_name}} {{user?.last_name}}</h4>
-  <div class="card">
-    <div class="card-body">
-      <br><br>
-      <h5 style="text-align: center;" *ngIf="data" >Consumo de datos disponible para el dia: <br>{{data[0].date}}</h5>
-      <br><br>
-    </div>
+  <div class="spin" *ngIf="this.dataService.spinnerbool">
+      <ion-spinner name="crescent"></ion-spinner>
   </div>
-  <ion-slides   pager="true" [options]="slideOpts">
-    <ion-slide >
+  <div *ngIf="!this.dataService.spinnerbool">
+
+
+    <h4 style="text-align: center;">Bienvenid@ a tu perfil, {{user?.first_name}} {{user?.last_name}}</h4>
+    <div class="card">
+      <div class="card-body">
+        <br><br>
+        <h5 style="text-align: center;" *ngIf="data" >Consumo de datos disponible para el dia: <br>{{data[0].date}}</h5>
+        <br><br>
+      </div>
+    </div>
+    <ion-slides   pager="true" >
+      <ion-slide >
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                Consumo de datos
+              </ion-card-title>
+              <div style="color:#fff">
+              <ion-card-content>
+                <canvas *ngIf="datachartbool" baseChart [options]="lineChartOptions"
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+            [colors]="chartColors"></canvas>
+              </ion-card-content></div>
+            </ion-card-header>
+          </ion-card>
+      </ion-slide>
+      <ion-slide >
         <ion-card>
           <ion-card-header>
             <ion-card-title>
-              Consumo de datos
+              Consumo de minutos
             </ion-card-title>
-            <ion-card-content>
-              <canvas *ngIf="datachartbool" baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [colors]="chartColors"></canvas>
+            <ion-card-content ><br>
+              <ion-text color="light">
+              <p class="text-center">Has utilizado:</p><br>
+              <h1 class="text-center"*ngIf="phonestring">{{phonestring}} minutos.</h1><br>
+              <p class="text-center">Estos minutos son ilimitados.</p></ion-text>
             </ion-card-content>
           </ion-card-header>
         </ion-card>
-    </ion-slide>
-    <ion-slide >
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>
-            Consumo de minutos
-          </ion-card-title>
-          <ion-card-content ><br>
-            <p class="text-center">Has utilizado:</p><br>
-            <h1 class="text-center"*ngIf="phonestring">{{phonestring}} minutos.</h1><br>
-            <p class="text-center">Estos minutos son ilimitados.</p>
-          </ion-card-content>
-        </ion-card-header>
-      </ion-card>
-    </ion-slide>
-    <ion-slide >
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>
-            Consumo de fibra
-          </ion-card-title>
-          <ion-card-content ><br>
-            <p class="text-center">Has utilizado:</p><br>
-            <h1 class="text-center"*ngIf="fiberstring">{{fiberstring}} GB.</h1><br>
-            <p class="text-center">Estos datos son ilimitados.</p>
-          </ion-card-content>
-        </ion-card-header>
-      </ion-card>
-    </ion-slide>
+      </ion-slide>
+      <ion-slide >
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              Consumo de fibra
+            </ion-card-title>
+            <ion-card-content ><br>
+              <ion-text color="light">
+              <p class="text-center">Has utilizado:</p><br>
+              <h1 class="text-center"*ngIf="fiberstring">{{fiberstring}} GB.</h1><br>
+              <p class="text-center">Estos datos son ilimitados.</p></ion-text>
+            </ion-card-content>
+          </ion-card-header>
+        </ion-card>
+      </ion-slide>
 
-  </ion-slides>
+    </ion-slides>
+  </div>
 </ion-content>
