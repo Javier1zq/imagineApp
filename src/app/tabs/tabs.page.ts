@@ -62,14 +62,14 @@ export class TabsPage implements OnInit {
       'Accept': 'application/json',
       'Authorization': `Bearer ` + this.tokenstring
     });
-    this.http.get('http://192.168.0.16:8000/api/user',{headers: headers}).subscribe(
+    this.http.get('http://localhost:8000/api/user',{headers: headers}).subscribe(
       result=>{
         this.dataService.user=result;
-        this.http.post('http://192.168.0.16:8000/api/services', this.dataService.user,{headers: headers}).subscribe(
+        this.http.post('http://localhost:8000/api/services', this.dataService.user,{headers: headers}).subscribe(
           result=>{
             this.dataService.services=<Services[]>result;
               if (this.dataService.services[0]!=null && this.dataService.services[0]!=undefined) {
-                this.http.post('http://192.168.0.16:8000/api/data', this.dataService.user,{headers: headers}).subscribe(
+                this.http.post('http://localhost:8000/api/data', this.dataService.user,{headers: headers}).subscribe(
                   result=>{
                     this.dataService.data=<Data[]>result;
                     if (this.dataService.data[0]!=null && this.dataService.data[0]!=undefined) {

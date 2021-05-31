@@ -62,7 +62,7 @@ export class Tab2Page implements OnInit {
       'user': this.user,
       'date': date
     }
-    this.http.post('http://192.168.0.16:8000/api/generateInvoice', data,{headers: headers}).subscribe(
+    this.http.post('http://localhost:8000/api/generateInvoice', data,{headers: headers}).subscribe(
           result=>{
             console.log("This is the base64 pdf:");
             console.log(result);

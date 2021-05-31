@@ -49,7 +49,7 @@ export class AuthenticationService {
 
 
     console.log('Attempting login');
-    return this.http.post('http://192.168.0.16:8000/oauth/token', sentData).pipe(
+    return this.http.post('http://localhost:8000/oauth/token', sentData).pipe(
       map((data: any) => data.access_token),
       switchMap(token => {
         console.log('This is the token in login');
